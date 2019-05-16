@@ -1,0 +1,13 @@
+/* 横向的封面图 start */
+.scroll-item-cover {
+    width: 100%;
+    background-color: white;
+    white-space:nowrap;
+}
+.items-cover {
+    width: 600rpx;
+    height: 885rpx;
+    margin-left: 15rpx;
+    border-radius: 3px;
+}
+/* end */

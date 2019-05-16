@@ -1,0 +1,8 @@
+<scroll-view class="scroll-item-cover" scroll-x="{{true}}">
+
+    <!-- 循环封面图 -->
+    <block a:for="{{headerImagesArr}}" a:for-item="headerImg">
+        <image src="{{headerImg}}" class="items-cover" />
+    </block>
+
+</scroll-view>
