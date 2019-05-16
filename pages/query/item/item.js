@@ -6,7 +6,7 @@ Page({
     itemContentArr: [],
 
     animationInfo: {},
-    animationOpacity: 0,
+    animationOpacity: 0, // 动画透明度的初始化;
 
     cartIco: "cart-empty",
 
@@ -60,6 +60,104 @@ Page({
         my.hideLoading();
       }
     });
+
+  },
+  onShow() {
+    // 创建动画
+    var animation = my.createAnimation();
+    this.setData({
+      // 导出动画效果到页面
+      animationInfo: animation.export()
+    });
+  },
+  // 添加商品到购物车
+  addToCart() {
+    var me = this;
+    me.setData({
+      animationOpacity: 1
+    });
+    me.showAddToCartAnimation();
+    // 商品id存入缓存购物车
+    var itemId = me.data.item.id;
+    me.cartItemIncrease(itemId);
+  },
+  // 商品放入购物车
+  cartItemIncrease(itemId) {
+    var me = this;
+
+    // 从缓存中拿到购物车数组对象
+    var cartItemIdArray = my.getStorageSync({
+      key: 'cartItemIdArray', // 缓存数据的key
+    }).data;
+    // 判断cartItemIdArray是否为空
+    if (cartItemIdArray == null || cartItemIdArray == undefined) {
+      // 构建空的购物车数组对象
+      cartItemIdArray = [];
+    }
+
+    // 定义标识用于判断购物车缓存中是否含有当前页的商品
+    var isItemAdded = false;
+    for (var i = 0; i < cartItemIdArray.length; i++) {
+      var item = cartItemIdArray[i];
+      if (item != null && item != undefined && item.itemId == itemId) {
+        // 删除原来的item
+        cartItemIdArray.splice(i, 1);
+        // 商品counts累加1
+        var counts = item.counts + 1;
+        // 重新构建商品对象
+        var cartItemNew = app.cartItem(itemId, counts);
+        cartItemIdArray.push(cartItemNew);
+        isItemAdded = true;
+        break;
+      }
+    }
+
+    // 在没有添加过当前商品的时候，新创建一个对象放入数组
+    if (!isItemAdded) {
+      // 构建新的商品对象
+      var cartItem = app.cartItem(itemId, 1);
+      // 把这个商品对象放入购物车
+      cartItemIdArray.push(cartItem);
+    }
+
+    // 把cartItemIdArray存入缓存
+    my.setStorageSync({
+      key: 'cartItemIdArray', // 缓存数据的key
+      data: cartItemIdArray, // 要缓存的数据
+    });
+  },
+  // 实现动画效果
+  showAddToCartAnimation() {
+    // 创建动画
+    var animation = my.createAnimation({
+      duration: 500 // 动画执行时间.
+    });
+    this.animation = animation;
+    // rotate: 旋转
+    // this.animation.rotate(-180).step();
+    // translateX 在水平轴上移动
+    // this.animation.translateX("296rpx").step();
+    // 旋转的同时，又在水平轴上移动
+    this.animation.rotate(-180).translateX("296rpx").step();
+    this.setData({
+      // 导出动画效果到页面
+      animationInfo: this.animation.export()
+    });
+    // 复原动画
+    setTimeout(function () {
+      this.setData({
+        animationOpacity: 0,
+        cartIco: "cart-full",
+      });
+      setTimeout(function () {
+        this.animation.rotate(0).translateX(0).step({
+          duration: 0
+        });
+        this.setData({
+          animationInfo: this.animation.export()
+        });
+      }.bind(this), 550);
+    }.bind(this), 600);
 
   },
 });

@@ -11,9 +11,25 @@ App({
 
   // 定义常量
   serverUrl: "https://www.imoocdsp.com",
-  name:'chenjing',
-  book:{a:1,b:'vvv'},
-  say(){
+  // 构建全局购物车商品对象，{商品ID， 购买数}
+  cartItem(itemId, counts) {
+    var cartItem = new Object();
+    cartItem.itemId = itemId;
+    cartItem.counts = counts;
+    return cartItem;
+  },
+
+
+
+
+
+
+
+
+
+  name: 'chenjing',
+  book: { a: 1, b: 'vvv' },
+  say() {
     // console.log('say')
   }
 });

@@ -22,3 +22,11 @@
 onPullDownRefreash()
 
 # flex容器排序
+
+# 动画
+
+# 缓存
+my.setStorage({key ,data})异步缓存  my.setStorageSync({})同步缓存 
+my.setStorage({key}) 
+my.removeStorage({key,cb})
+my.clearStorage();
