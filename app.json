@@ -5,7 +5,9 @@
     "pages/hello/hello",
     "pages/query/list/list",
     "pages/template/itemList/itemList",
-    "pages/query/item/item"
+    "pages/query/item/item",
+    "pages/shoppingCart/cart/cart",
+    "pages/mine/info/info"
   ],
   "window": {
     "defaultTitle": "购物app",

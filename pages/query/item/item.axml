@@ -69,7 +69,7 @@
 <view class="bottom-operator">
   <view class="like-img" onTap="goToCart">
     <image src="/resources/icon/smallIco/{{cartIco}}.png" class="like-ico" />
-    <view class="like-words" onTap="">购物车    
+    <view class="like-words">购物车    
     </view>
   </view>
   <view class="like-img" onTap="likeItem" hidden="{{unlikeHidden}}">

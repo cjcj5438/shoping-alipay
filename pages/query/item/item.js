@@ -160,4 +160,10 @@ Page({
     }.bind(this), 600);
 
   },
+  // 跳转到购物车页面
+  goToCart() {
+    my.switchTab({
+      url: '/pages/shoppingCart/cart/cart'
+    });
+  },
 });
